@@ -255,23 +255,29 @@ function draw() {
  text(minTemp, 40, 510);
  textAlign(RIGHT, TOP);
  text(maxTemp, 260, 510);
- //dettagli del fiume al RollOver 
+ //riquadro con i dettagli del fiume al RollOver
  if(righeHover.length > 0){
- stroke(7, 31, 38);
- strokeWeight(5);
- fill(216, 243, 234);
  textSize(14);
- //di solito scrivo a destra del mouse
- let x = mouseX + 15;
- textAlign(LEFT, TOP);
- //nella metà destra della finestra scrivo a sinistra
+ //larghezza del riquadro = riga più lunga + un po' di margine
+ let larghezzaBox = max(textWidth(righeHover[0]), textWidth(righeHover[1]), textWidth(righeHover[2])) + 28;
+ //di solito il riquadro sta a destra del mouse...
+ let boxX = mouseX + 15;
+ //...ma nella metà destra della finestra sta a sinistra, così non esce
  if(mouseX > windowWidth / 2){
- x = mouseX - 15;
- textAlign(RIGHT, TOP);
+ boxX = mouseX - larghezzaBox - 15;
  }
- let y = min(mouseY + 15, windowHeight - 75);
+ let boxY = min(mouseY + 15, windowHeight - 90);
+  //riquadro scuro con un bordo verde
+ fill(7, 31, 38);
+ stroke(61, 220, 151);
+ strokeWeight(1);
+ rect(boxX, boxY, larghezzaBox, 76, 8);
+ //testo dentro al riquadro
+ noStroke();
+ fill(216, 243, 234);
+ textAlign(LEFT, CENTER);
  for(let i = 0; i < righeHover.length; i++){
- text(righeHover[i], x, y + i * 22);
+ text(righeHover[i], boxX + 14, boxY + 16 + i * 22);
  }
  }
 }
